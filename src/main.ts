@@ -1,27 +1,33 @@
 import "./style.css";
 
+interface Address {
+  street: string;
+  suite: string;
+  city: string;
+  zipcode: string;
+  geo: Geolocation;
+}
+
+interface Geolocation {
+  lat: string;
+  lng: string;
+}
+
+interface Company {
+  name: string;
+  catchPhrase: string;
+  bs: string;
+}
+
 interface User {
   id: number;
   name: string;
   username: string;
   email: string;
-  address: {
-    street: string;
-    suite: string;
-    city: string;
-    zipcode: string;
-    geo: {
-      lat: string;
-      lng: string;
-    };
-  };
+  address: Address;
   phone: string;
   website: string;
-  company: {
-    name: string;
-    catchPhrase: string;
-    bs: string;
-  };
+  company: Company;
 }
 
 async function getUsers(): Promise<User[]> {
@@ -37,5 +43,9 @@ for (let user of users) {
 
   li.textContent = user.email;
 
-  document.getElementById("user-list")?.appendChild(li);
+  const userList = document.getElementById("user-list");
+
+  if (userList) {
+    userList.appendChild(li);
+  }
 }
